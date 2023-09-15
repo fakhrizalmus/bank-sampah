@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="berat" class="col-sm-2 col-form-label">Berat</label>
+                            <label for="berat" class="col-sm-2 col-form-label">Berat (kg)</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control @error('berat') is-invalid @else @enderror"
                                     id="berat" name="berat" autofocus value="<?= 0 ?>">
