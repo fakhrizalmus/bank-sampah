@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2023 at 02:25 PM
+-- Generation Time: Sep 18, 2023 at 02:32 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.2.5
 
@@ -32,6 +32,7 @@ CREATE TABLE `sampahs` (
   `jenis_sampah` varchar(255) NOT NULL,
   `deskripsi` varchar(255) NOT NULL,
   `foto` varchar(255) NOT NULL,
+  `lama_penyimpanan` int(11) NOT NULL,
   `harga` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
@@ -41,9 +42,9 @@ CREATE TABLE `sampahs` (
 -- Dumping data for table `sampahs`
 --
 
-INSERT INTO `sampahs` (`id_sampah`, `jenis_sampah`, `deskripsi`, `foto`, `harga`, `updated_at`, `created_at`) VALUES
-(1, 'plastik', 'ini sampah plastik yaa', 'plastik.jpg', 500, NULL, NULL),
-(2, 'kertas', 'ini sampah kertas', 'kertas.jpg', 1000, NULL, NULL);
+INSERT INTO `sampahs` (`id_sampah`, `jenis_sampah`, `deskripsi`, `foto`, `lama_penyimpanan`, `harga`, `updated_at`, `created_at`) VALUES
+(1, 'plastik', 'ini sampah plastik yaa', 'plastik.jpg', 30, 500, NULL, NULL),
+(2, 'kertas', 'ini sampah kertas', 'kertas.jpg', 20, 1000, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -56,8 +57,9 @@ CREATE TABLE `transaksis` (
   `sampah_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `berat` int(11) NOT NULL,
+  `status` enum('active','expired') NOT NULL,
   `total` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
+  `created_at` date NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -65,13 +67,15 @@ CREATE TABLE `transaksis` (
 -- Dumping data for table `transaksis`
 --
 
-INSERT INTO `transaksis` (`id_transaksi`, `sampah_id`, `user_id`, `berat`, `total`, `created_at`, `updated_at`) VALUES
-(1, 2, 2, 1, 1000, '2023-09-15 11:06:15', '2023-09-15 11:06:15'),
-(2, 2, 2, 3, 3000, '2023-09-15 11:07:27', '2023-09-15 11:07:27'),
-(3, 1, 2, 6, 3000, '2023-09-15 11:18:44', '2023-09-15 11:18:44'),
-(4, 2, 2, 5, 5000, '2023-09-15 12:02:57', '2023-09-15 12:02:57'),
-(5, 1, 2, 5, 2500, '2023-09-15 12:17:23', '2023-09-15 12:17:23'),
-(6, 1, 2, 9, 4500, '2023-09-15 12:21:46', '2023-09-15 12:21:46');
+INSERT INTO `transaksis` (`id_transaksi`, `sampah_id`, `user_id`, `berat`, `status`, `total`, `created_at`, `updated_at`) VALUES
+(1, 2, 2, 1, 'active', 1000, '2023-09-15', '2023-09-15 11:06:15'),
+(2, 2, 2, 3, 'active', 3000, '2023-09-15', '2023-09-15 11:07:27'),
+(3, 1, 2, 6, 'active', 3000, '2023-09-15', '2023-09-15 11:18:44'),
+(4, 2, 2, 5, 'active', 5000, '2023-09-15', '2023-09-15 12:02:57'),
+(5, 1, 2, 5, 'active', 2500, '2023-09-15', '2023-09-15 12:17:23'),
+(6, 1, 2, 9, 'active', 4500, '2023-09-15', '2023-09-15 12:21:46'),
+(7, 2, 2, 4, 'expired', 4000, '2023-08-23', '2023-09-18 12:27:55'),
+(9, 1, 2, 2, 'active', 1000, '2023-09-18', '2023-09-18 12:22:37');
 
 -- --------------------------------------------------------
 
@@ -128,13 +132,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `sampahs`
 --
 ALTER TABLE `sampahs`
-  MODIFY `id_sampah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_sampah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
-  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
