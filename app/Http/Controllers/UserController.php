@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\SampahChart;
 use App\Http\Controllers\Controller;
 use App\Models\Sampah;
 use App\Models\Transaksi;
@@ -14,9 +15,17 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(SampahChart $sampahChart)
     {
+        $transaksi = Transaksi::get();
+        // dd($transaksi);
+        // foreach ($transaksi as $s) {
+        //     $jumlahtransaksi = Transaksi::where('sampah_id', $s->sampah_id)->count();
+        //     $label = $s->jenis_transaksi;
+        // }
+        // dd($jumlahtransaksi);
         $sampah = Sampah::orderByDesc('id_sampah')->get();
+        // $Chart = $sampahChart->build();
         // dd(User::where('id', Auth::id())->first()->jenis);
         return view('user.index', compact('sampah'));
     }

@@ -32,6 +32,15 @@
                         </div>
                     @endif
                 </div>
+                {{-- <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                {!! $Chart->container() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
                 <div class="card-body">
                     <table id="datatablesSimple">
                         <thead>
@@ -87,6 +96,8 @@
             </footer>
         </div>
     </div>
+    {{-- <script src="{{ $Chart->cdn() }}"></script>
+    {{ $Chart->script() }} --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="/admin/js/scripts.js"></script>
