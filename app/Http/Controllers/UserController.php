@@ -51,6 +51,7 @@ class UserController extends Controller
             'berat' => $request->berat,
             'total' => $request->berat * $request->harga,
             'sampah_id' => $request->id_sampah,
+            'status' => 'active',
             'user_id' => auth()->id()
         ]);
         Transaksi::create($data);
@@ -63,6 +64,17 @@ class UserController extends Controller
     public function transaksi()
     {
         $transaksi = Transaksi::with(['users', 'sampahs'])->where('transaksis.user_id', '=', Auth::id())->orderByDesc('transaksis.id_transaksi')->get();
+        // dd($transaksi[0]->sampahs->lama_penyimpanan);
+        foreach ($transaksi as $s) {
+            $tglSekarang = date_create();
+            $tglCreate = date_create($s->created_at);
+            // dd(date_diff($tglCreate, $tglSekarang)->format('%a'));
+            if (date_diff($tglCreate, $tglSekarang)->format('%a') >= $s->sampahs->lama_penyimpanan) {
+                Transaksi::where('id_transaksi', '=', $s->id_transaksi)->update([
+                    'status' => 'expired'
+                ]);
+            }
+        };
         // dd($transaksi);
         return view('user.transaksi', compact('transaksi'));
     }

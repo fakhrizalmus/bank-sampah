@@ -37,8 +37,15 @@ class SampahController extends Controller
             'jenis_sampah' => 'required',
             'deskripsi' => 'required',
             'foto' => 'image|mimes:jpg,png,jpeg,svg',
-            'harga' => 'required'
+            'harga' => 'required',
+            'lama_penyimpanan' => 'required'
         ]);
+        if ($request->harga < 0) {
+            return back()->with('error', 'Harga tidak boleh minus!');
+        }
+        if ($request->lama_penyimpanan < 0) {
+            return back()->with('error', 'Lama penyimpanan tidak boleh minus!');
+        }
         $foto = $request->file('foto');
         // dd($foto);
         if ($foto == null) {
@@ -51,7 +58,8 @@ class SampahController extends Controller
             'jenis_sampah' => $request->jenis_sampah,
             'deskripsi' => $request->deskripsi,
             'foto' => $namaFoto,
-            'harga' => $request->harga
+            'harga' => $request->harga,
+            'lama_penyimpanan' => $request->lama_penyimpanan
         ]);
         Sampah::create($data);
         return redirect('/a')->with('success', 'Data berhasil ditambahkan!');
@@ -92,6 +100,6 @@ class SampahController extends Controller
             unlink('storage/img/' . $sampah->foto);
         }
         Sampah::where('id_sampah', $id_sampah)->delete();
-        return redirect('/a');
+        return redirect('/a')->with('success', 'Berhasil dihapus');
     }
 }

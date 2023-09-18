@@ -42,6 +42,7 @@
                                 <th scope="col">Deskripsi</th>
                                 <th scope="col">Harga per kilo</th>
                                 <th scope="col">Berat</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Total</th>
                                 {{-- <th scope="col">Aksi</th> --}}
                             </tr>
@@ -60,6 +61,13 @@
                                 <td><?= $k->sampahs->deskripsi ?></td>
                                 <td><?= $k->sampahs->harga ?></td>
                                 <td><?= $k->berat ?></td>
+                                <td>
+                                    <?php if($k->status == 'active') : ?>
+                                    <h6><span class="badge bg-success rounded-pill">{{ $k->status }}</span></h6>
+                                    <?php elseif($k->status == 'expired') : ?>
+                                    <h6><span class="badge bg-danger rounded-pill">{{ $k->status }}</span></h6>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= $k->total ?></td>
                                 {{-- <td>
                                     <form action="/delete-sampah/<?= $k->id_sampah ?>" method="post" class="d-inline"

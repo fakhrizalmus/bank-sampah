@@ -39,6 +39,7 @@
                                 <th scope="col">No.</th>
                                 <th scope="col">Gambar</th>
                                 <th scope="col">Nama</th>
+                                <th scope="col">Lama Penyimpanan (hari)</th>
                                 <th scope="col">Deskripsi</th>
                                 <th scope="col">Harga per kilo</th>
                                 <th scope="col">Aksi</th>
@@ -55,6 +56,7 @@
                                 <td><img src="storage/img/<?= $k->foto ?>" alt="" width="100px"></td>
                                 <?php endif; ?>
                                 <td><?= $k->jenis_sampah ?></td>
+                                <td><?= $k->lama_penyimpanan ?></td>
                                 <td><?= $k->deskripsi ?></td>
                                 <td><?= $k->harga ?></td>
                                 <td>

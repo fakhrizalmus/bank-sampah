@@ -29,6 +29,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    // Route::get('/');
     Route::get('/home', [UserController::class, 'index']);
     Route::get('/a', [SampahController::class, 'index']);
     Route::post('/logout', [LoginController::class, 'destroy']);

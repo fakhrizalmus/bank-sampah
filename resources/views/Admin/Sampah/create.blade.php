@@ -24,6 +24,16 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active"></li>
                     </ol>
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-error" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <form action="/post-sampah" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" class="form-control" id="created_at" name="created_at" autofocus
@@ -36,6 +46,21 @@
                                     id="jenis_sampah" name="jenis_sampah" autofocus value="<?= old('jenis_sampah') ?>">
                                 <div id="validationServer03Feedback" class="invalid-feedback">
                                     @error('jenis_sampah')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="lama_penyimpanan" class="col-sm-2 col-form-label">Lama Penyimpanan
+                                (hari)</label>
+                            <div class="col-sm-10">
+                                <input type="number"
+                                    class="form-control @error('lama_penyimpanan') is-invalid @else @enderror"
+                                    id="lama_penyimpanan" name="lama_penyimpanan" autofocus
+                                    value="<?= old('lama_penyimpanan') ?>">
+                                <div id="validationServer03Feedback" class="invalid-feedback">
+                                    @error('lama_penyimpanan')
                                         {{ $message }}
                                     @enderror
                                 </div>
